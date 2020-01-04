@@ -27,23 +27,18 @@ def encode(arr):
         outString=outString+"\n"
         timeinc = timeinc+1
     return outString
-#files=glob.glob(r".\dataset\train\*.midi")
-#print(files)
-# for f in files[0:5]:
-#     x= f.split("\\")[-1]
-#     print(x)
-#     fileName=f+"\\"+x
-#     # with open(fileName) as file:
-#     #     content = file.read()
-#     pr = get_piano_roll(fileName)
-#     arr = pr.T
-#     outString= encode(arr)
-#     file1 = open("data.txt","a")
-#     file1.write(outString)
 
-pr = get_piano_roll("testEnc.midi")
-arr = pr.T
-outString = encode(arr)
-file1 = open("dataNotes.txt", "a")
-file1.write(outString)
+
+files=glob.glob(r".\dataset\train\*.midi")
+#print(files)
+for f in files[0:5]:
+    x= f.split("\\")[-1]
+    print(x)
+    fileName=f+"\\"+x
+    pr = get_piano_roll(fileName)
+    arr = pr.T
+    outString= encode(arr)
+    file1 = open("dataNotes.txt","a")
+    file1.write(outString)
+
 file1.close()
