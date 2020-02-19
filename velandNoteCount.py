@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-with open('dataNotes.txt') as f:
+with open('fulldataNotes.txt') as f:
     lines = f.readlines()
 outString1=""
 for l in lines:
@@ -9,7 +9,7 @@ for l in lines:
 		outString1=outString1+l
 notes=outString1.split("\n")
 
-with open('dataVel.txt') as f:
+with open('fulldataVel.txt') as f:
     lines = f.readlines()
 outString2=""
 for l in lines:

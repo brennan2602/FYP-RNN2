@@ -1,11 +1,11 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 import matplotlib.pyplot as plt
 import tensorflow as tf
-
 import numpy as np
 import os
-#path_to_file = r"C:\Users\brenn\Documents\scripts\FYProughwork\verify3.txt"
-path_to_file = "dataNotes.txt"
+# most code taken from TensorFlow tutorial and repurposed for music generation
+
+path_to_file = "dataNotes.txt" #file to store training data under
 text = open(path_to_file, 'rb').read().decode(encoding='utf-8')
 vocab = sorted(set(text))
 # Creating a mapping from unique characters to indices
@@ -81,12 +81,11 @@ EPOCHS=25
 history = model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
 tf.train.latest_checkpoint(checkpoint_dir)
 model = build_model(vocab_size, embedding_dim, rnn_units, batch_size=1)
-
 model.load_weights(tf.train.latest_checkpoint(checkpoint_dir))
-
 model.build(tf.TensorShape([1, None]))
 model.summary()
 
+#plotting learning curve
 plt.plot(history.history["loss"])
 plt.title("model loss")
 plt.ylabel("loss")

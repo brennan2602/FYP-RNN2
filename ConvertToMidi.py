@@ -1,5 +1,7 @@
 import numpy as np
 import pretty_midi
+
+#taken from prettyMidi docs
 def piano_roll_to_pretty_midi(piano_roll, fs=1, program=0):
     '''Convert a Piano Roll array into a PrettyMidi object
      with a single instrument.
@@ -51,8 +53,9 @@ def piano_roll_to_pretty_midi(piano_roll, fs=1, program=0):
     pm.instruments.append(instrument)
     return pm
 
+#read in piano roll of merged velocities and notes
 my_data = np.genfromtxt("arrayafter.txt")
-print(my_data)
+#print(my_data)
 fs=20
-pm = piano_roll_to_pretty_midi(my_data, fs=fs, program=1)
+pm = piano_roll_to_pretty_midi(my_data, fs=fs, program=1) #convert piano roll to MIDI file
 pm.write("piano.midi")

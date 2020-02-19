@@ -2,8 +2,9 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import tensorflow as tf
 import numpy as np
 import os
+#most code taken from TensorFlow tutorial and repurposed for music generation
 
-path_to_file = "dataVel.txt"
+path_to_file = "dataVel.txt" #training data file
 text = open(path_to_file, 'rb').read().decode(encoding='utf-8')
 vocab = sorted(set(text))
 # Creating a mapping from unique characters to indices
@@ -16,6 +17,7 @@ embedding_dim = 256
 # Number of RNN units
 rnn_units = 1024
 
+#function to build model, first we will build model before loading in weights from training checkpoint
 def build_model(vocab_size, embedding_dim, rnn_units, batch_size):
   model = tf.keras.Sequential([
     tf.keras.layers.Embedding(vocab_size, embedding_dim,
@@ -29,10 +31,10 @@ def build_model(vocab_size, embedding_dim, rnn_units, batch_size):
   return model
 
 
-tf.train.latest_checkpoint(checkpoint_dir)
+tf.train.latest_checkpoint(checkpoint_dir) #getting most recent checkpoint
 print(tf.train.latest_checkpoint(checkpoint_dir))
 model = build_model(vocab_size, embedding_dim, rnn_units, batch_size=1)
-model.load_weights(tf.train.latest_checkpoint(checkpoint_dir))
+model.load_weights(tf.train.latest_checkpoint(checkpoint_dir)) #loading weights into model from checkpoint
 model.build(tf.TensorShape([1, None]))
 model.summary()
 
@@ -73,17 +75,19 @@ def generate_text(model, start_string):
 
   return (start_string + ''.join(text_generated))
 
-generatedVel= generate_text(model, start_string=u"53.0")
+generatedVel= generate_text(model, start_string=u"53.0") #generating velocity figures from seed string
 print(generatedVel)
-file1 = open("generatedVel.txt","a")
+file1 = open("generatedVel.txt","a") #saving velocity figures generated into text file
 file1.write(generatedVel)
 close = file1.close()
 
-with open("generatedVel.txt", 'r') as file:
-    outString = file.read()
+#below is some old debugging code
 
-if outString.strip()== generatedVel:
-    print("true")
-else:
-    print("false")
-    print(generatedVel)
+# with open("generatedVel.txt", 'r') as file:
+#     outString = file.read()
+#
+# if outString.strip()== generatedVel:
+#     print("true")
+# else:
+#     print("false")
+#     print(generatedVel)
